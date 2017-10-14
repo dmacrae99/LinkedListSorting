@@ -6,7 +6,8 @@ struct Sinlist {
 	char *data;
 };
 void printlist(struct Sinlist *Sinlist);
-struct Sinlist *readfile_Sinlist(char *file);
+struct Sinlist *readfile_Sinlist(const char *file);
+void outputtofile(struct Sinlist *Sinlist, const char *file);
 int ERROR(const char *msg);
 
 #endif

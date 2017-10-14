@@ -3,7 +3,7 @@
 
 #include "list.h"
 
-struct Sinlist *readfile_Sinlist(char *file) {
+struct Sinlist *readfile_Sinlist(const char *file) {
 	struct Sinlist *Sinlist = malloc(sizeof(struct Sinlist));
 	struct Sinlist *entry = malloc(sizeof(struct Sinlist));
 	size_t entrysize = 100;
@@ -15,7 +15,7 @@ struct Sinlist *readfile_Sinlist(char *file) {
 	FILE *listf = fopen(file, "r");
 
 	if(listf == NULL) {
-		ERROR("File Failed to Open");
+		ERROR("File Failed to Open for Reading");
 	} else {
 		while(!feof(listf)) {
 			entry->data = malloc(entrysize*sizeof(char));
@@ -31,9 +31,22 @@ struct Sinlist *readfile_Sinlist(char *file) {
 	return Sinlist;
 }
 
+void outputtofile(struct Sinlist *Sinlist, const char *file) {
+	FILE *listf = fopen(file, "w");
+	struct Sinlist *entry = Sinlist;
+
+	if(listf == 0) {
+		ERROR("File failed to open for Writing");
+	} else {
+		while(entry->next != 0) {
+			fputs(entry->data, listf);
+			entry = entry->next;
+		}
+	}	
+}
+
 void printlist(struct Sinlist *Sinlist) {
-	struct Sinlist *entry;
-	entry = Sinlist;
+	struct Sinlist *entry = Sinlist;
 
 	while(entry->next != 0) {
 		printf("%s", entry->data);
