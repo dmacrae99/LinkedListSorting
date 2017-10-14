@@ -23,23 +23,35 @@
 #include "sort.h"
 #include "list.h"
 
+void Swap_Values(char *data1, char *data2) {
+	char *temp = malloc(100*sizeof(char));
 
-//One Implementation of the bubble sort algorithm.
+	strcpy(temp, data1);
+	strcpy(data1, data2);
+	strcpy(data2, temp);
+
+	free(temp);
+}
+
 struct Sinlist *bubble_Sinlist(struct Sinlist *Sinlist) {
 	struct Sinlist *entry;
+	int count;
 
-	entry = Sinlist;
-
-	while(entry->next->next != 0) {
-		if (strcmp(entry->data, entry->next->data) > 0) {
-			char *temp = malloc(100*sizeof(char));
-			strcpy(temp, entry->data);
-			strcpy(entry->data, entry->next->data);
-			strcpy(entry->next->data, temp);
-			free(temp);
+	do {
+		entry = Sinlist;
+		count = 0;
+		
+		while(entry->next->next != 0) {
+			if (strcmp(entry->data, entry->next->data) > 0) {
+				Swap_Values(entry->data, entry->next->data);
+				count++;
+			}
+			entry = entry->next;
 		}
-		entry = entry->next;
-	}
+
+	} while(count != 0);
+
+	free(entry);
 	return Sinlist;
 }
 
