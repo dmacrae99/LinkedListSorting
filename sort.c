@@ -26,24 +26,21 @@
 
 //One Implementation of the bubble sort algorithm.
 struct Sinlist *bubble_Sinlist(struct Sinlist *Sinlist) {
-	struct Sinlist *entry = malloc(sizeof(struct Sinlist));
-	entry = Sinlist;
-	char *temp = malloc(100*sizeof(char));
-	
-	while(entry->next != NULL) {
+	struct Sinlist *entry;
 
-		if (strcmp(entry->data, entry->next->data) < 0) {
-			//Swap the values
+	entry = Sinlist;
+
+	while(entry->next->next != 0) {
+		if (strcmp(entry->data, entry->next->data) > 0) {
+			char *temp = malloc(100*sizeof(char));
 			strcpy(temp, entry->data);
 			strcpy(entry->data, entry->next->data);
 			strcpy(entry->next->data, temp);
-
+			free(temp);
 		}
 		entry = entry->next;
-
 	}
 	return Sinlist;
-
 }
 
 

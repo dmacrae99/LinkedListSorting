@@ -4,13 +4,13 @@
 #include "list.h"
 
 struct Sinlist *readfile_Sinlist(char *file) {
-	struct Sinlist *root = malloc(sizeof(struct Sinlist));
+	struct Sinlist *Sinlist = malloc(sizeof(struct Sinlist));
 	struct Sinlist *entry = malloc(sizeof(struct Sinlist));
 	size_t entrysize = 100;
 	
-	root->next = malloc(sizeof(struct Sinlist));
-	root->next = entry;
-	entry = root;
+	Sinlist->next = malloc(sizeof(struct Sinlist));
+	Sinlist->next = entry;
+	entry = Sinlist;
 
 	FILE *listf = fopen(file, "r");
 
@@ -25,7 +25,20 @@ struct Sinlist *readfile_Sinlist(char *file) {
 		}
 	fclose(listf);
 	}
-	return root;
+	free(entry->data);
+	free(entry->next);
+	free(entry);
+	return Sinlist;
+}
+
+void printlist(struct Sinlist *Sinlist) {
+	struct Sinlist *entry;
+	entry = Sinlist;
+
+	while(entry->next != 0) {
+		printf("%s", entry->data);
+		entry = entry->next;
+	}
 }
 
 int ERROR(const char *msg) {
